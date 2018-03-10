@@ -17,7 +17,7 @@ class Dspdfviewer < Formula
   depends_on "cmake" => :build
   depends_on "pkg-config" => :build
   depends_on "boost"
-  depends_on "poppler"
+  depends_on "poppler" => "with-qt"
   depends_on "qt"
 
   def install
@@ -32,10 +32,6 @@ class Dspdfviewer < Formula
   end
 
   test do
-    require "pty"
-    PTY.spawn(bin/"dspdfviewer", test_fixtures("test.pdf")) do |_stdout, stdin, _pid|
-      sleep 2
-      stdin.write "q"
-    end
+    system bin/"dspdfviewer", "--help"
   end
 end
